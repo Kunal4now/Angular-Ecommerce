@@ -1,0 +1,15 @@
+<!-- <app-product-item *ngFor="let product of productList" [product]="product" ></app-product-item> -->
+
+<!-- <h1 *ngIf="productList.length !== 0" >Products</h1>
+
+<div *ngFor="let product of productList">
+    <app-product-item [product]="product" ></app-product-item>
+</div> -->
+
+<h1 *ngIf="productList.length !== 0">Products</h1>
+
+<div class="product-list-container">
+  <div *ngFor="let product of productList">
+    <app-product-item [product]="product"></app-product-item>
+  </div>
+</div>

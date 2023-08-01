@@ -1,0 +1,7 @@
+<!-- <h1 *ngIf="cartItemList.length !==0" >Cart Items</h1> -->
+<h1 *ngIf="cartItemList.length !== 0">Cart Items ({{ countCartItems() }})</h1>
+<div class="products-container" *ngFor="let cartItem of cartItemList" >
+    <app-mini-cart-item [cartItem]="cartItem" ></app-mini-cart-item>
+</div>
+<!-- <h2 *ngIf="cartItemList.length !==0" >Cart Total : {{getCartTotal()}}</h2> -->
+<h2 *ngIf="cartItemList.length !== 0" class="cart-total">Cart Total: {{ getCartTotal() }}</h2>

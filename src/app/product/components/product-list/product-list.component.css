@@ -1,0 +1,21 @@
+.product-list-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .product-card {
+    /* display:flex; */
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    flex: 1;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
