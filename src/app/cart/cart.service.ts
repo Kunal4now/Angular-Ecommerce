@@ -1,61 +1,73 @@
 import { ChangeDetectorRef, Injectable } from '@angular/core';
 import { Product } from '../product';
+import { BehaviorSubject } from 'rxjs';
+
+type Cart = {
+  total: number,
+  items: Product[]
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  cartItems: Product[] = [];
+  // cartItems: Product[] = [];
+  cart: Cart = {
+    total: 0,
+    items: []
+  };
+  cart$: BehaviorSubject<Cart> = new BehaviorSubject(this.getFromStorage());
   total: number = parseInt("0");
 
   constructor() { }
 
   getFromStorage() {
-    const cartItemsFromStorage = sessionStorage.getItem('cartItems');
+    const cartItemsFromStorage = sessionStorage.getItem('cart');
 
     if (cartItemsFromStorage) {
-      this.cartItems = JSON.parse(cartItemsFromStorage);
+      this.cart = JSON.parse(cartItemsFromStorage);
     }
 
-    return this.cartItems;
+    return this.cart;
   }
 
-  setToStorage(cartItems: Product[]) {
-    sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
+  setToStorage(){
+    sessionStorage.setItem('cart', JSON.stringify(this.cart));
   }
 
   calculateTotal() {
-    this.cartItems = this.getFromStorage();
-    if (this.cartItems.length === 0) {
+    this.cart = this.getFromStorage();
+    if (this.cart.items.length === 0) {
       return parseInt("0");
     }
     
-    return this.cartItems.map(cartItem => cartItem.price).reduce((acc, curr) => acc + curr, 0);
+    return this.cart.items.map(cartItem => cartItem.price).reduce((acc, curr) => acc + curr, 0);
   }
 
   addToCart(product: Product) {
-    this.cartItems.push(product)
-    this.setToStorage(this.cartItems)
-    console.log("Cart Total : " + this.total)
-    // sessionStorage.setItem();
+    this.cart.items = [...this.cart.items, product];
+    this.cart.total = this.cart.items.reduce((acc, item) =>  item.price + acc, 0);
+    this.setToStorage();
+    this.cart$.next(this.cart);
   }
 
   findAllCartItems() {
     return this.getFromStorage();
   }
 
-  removeFromCart(productId: number) {
-    this.cartItems = this.getFromStorage();
-    let tmpCartItems: Product[] = this.cartItems.filter((cartItem) => {
-      return productId !== cartItem.id
-    })
-    console.log("updated Cart List : ", tmpCartItems)
-    this.cartItems = [...tmpCartItems]
-    this.setToStorage(this.cartItems)
-  }
+  // removeFromCart(productId: number) {
+  //   this.cartItems = this.getFromStorage();
+  //   let tmpCartItems: Product[] = this.cartItems.filter((cartItem) => {
+  //     return productId !== cartItem.id
+  //   })
+  //   console.log("updated Cart List : ", tmpCartItems)
+  //   this.cartItems = [...tmpCartItems]
+  //   this.setToStorage(this.cartItems)
+  // }
 
   countCartItems() {
-    this.cartItems = this.getFromStorage();
-    return this.cartItems.length
+    // this.cartItems = this.getFromStorage();
+    // return this.cartItems.length
+    return this.cart.total;
   }
 }

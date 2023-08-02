@@ -11,4 +11,5 @@
     <p class="product-description">Description: {{ product.description }}</p>
     <p class="product-price">Price: {{ product.price }}</p>
     <button (click)="onAddToCartClick(product)">Add To Cart</button>
+    <button><a [routerLink]="['/product', product.id]" style="text-decoration: none; color: white;">Show Details</a></button>
 </div>

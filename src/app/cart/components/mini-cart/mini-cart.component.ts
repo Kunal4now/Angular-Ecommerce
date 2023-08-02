@@ -16,7 +16,7 @@ export class MiniCartComponent {
   constructor(private cartService: CartService) {}
 
   ngOnInit() {
-    this.cartItemList = this.cartService.findAllCartItems();
+    this.cartItemList = this.cartService.findAllCartItems().items;
     this.cartTotal = this.cartService.total
   }
 

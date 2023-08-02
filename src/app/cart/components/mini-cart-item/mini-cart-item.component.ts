@@ -14,6 +14,6 @@ export class MiniCartItemComponent {
   constructor(private cartService: CartService) {}
 
   onRemoveFromCartClick(productId: number) {
-    this.cartService.removeFromCart(productId);
+    // this.cartService.removeFromCart(productId);
   }
 }

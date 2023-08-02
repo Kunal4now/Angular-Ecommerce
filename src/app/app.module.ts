@@ -10,6 +10,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { MiniCartComponent } from './cart/components/mini-cart/mini-cart.component';
 import { MiniCartItemComponent } from './cart/components/mini-cart-item/mini-cart-item.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProductModule } from './product/product.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ProductModule
   ],
   providers: [],
   bootstrap: [AppComponent]

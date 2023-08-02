@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../product';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  private products: Product[] = []
+  private products: Product[] = [];
+  private productsSubject$: BehaviorSubject<Product[]> = new BehaviorSubject(this.getFromStorage());
+  products$ = this.productsSubject$.asObservable()
+  
   constructor() { }
 
   getFromStorage() {
